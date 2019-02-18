@@ -16,9 +16,9 @@ export default class SentryTransport extends TransportStream {
     error: Sentry.Severity.Error
   };
 
-  constructor({ sentry, ...opts }: ISentryTransportOptions) {
+  constructor(opts?: ISentryTransportOptions) {
     super(opts);
-    Sentry.init(this.withDefaults(sentry || {}));
+    Sentry.init(this.withDefaults(opts && opts.sentry || {}));
   }
 
   log(info: any, callback: () => void) {
