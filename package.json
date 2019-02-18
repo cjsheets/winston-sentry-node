@@ -1,0 +1,36 @@
+{
+  "name": "winston-sentry-node",
+  "version": "0.0.1",
+  "description": "Winston 3.x transport for Sentry.io",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cjsheets/winston-sentry-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cjsheets/winston-sentry-node/issues"
+  },
+  "homepage": "https://github.com/cjsheets/winston-sentry-node",
+  "keywords": [
+    "winston",
+    "transport",
+    "winston3",
+    "raven",
+    "sentry"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@sentry/node": "^4.6.1",
+    "winston-transport": "^4.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^11.9.4",
+    "logform": "^2.1.2",
+    "rimraf": "^2.6.3",
+    "ts-lint": "^4.5.1",
+    "typescript": "^3.3.3"
+  }
+}
