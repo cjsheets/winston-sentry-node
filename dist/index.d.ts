@@ -4,6 +4,12 @@ export interface ISentryTransportOptions extends TransportStream.TransportStream
     sentry: Sentry.NodeOptions;
 }
 export declare class SentryTransport extends TransportStream {
-    constructor(opts: ISentryTransportOptions);
+    silent: boolean;
+    private levelsMap;
+    constructor({ sentry, ...opts }: ISentryTransportOptions);
     log(info: any, callback: () => void): void;
+    readonly sentry: typeof Sentry;
+    private withDefaults;
+    private normalizeMessage;
+    private shouldLogMessage;
 }

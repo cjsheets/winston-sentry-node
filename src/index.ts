@@ -6,9 +6,19 @@ export interface ISentryTransportOptions extends TransportStream.TransportStream
 }
 
 export class SentryTransport extends TransportStream {
-  constructor(opts: ISentryTransportOptions) {
+  public silent = false;
+  private levelsMap = {
+    silly: Sentry.Severity.Debug,
+    verbose: Sentry.Severity.Debug,
+    info: Sentry.Severity.Info,
+    debug: Sentry.Severity.Debug,
+    warn: Sentry.Severity.Warning,
+    error: Sentry.Severity.Error
+  };
+
+  constructor({ sentry, ...opts }: ISentryTransportOptions) {
     super(opts);
-    Sentry.init(opts.sentry);
+    Sentry.init(this.withDefaults(sentry));
   }
 
   log(info: any, callback: () => void) {
@@ -16,13 +26,33 @@ export class SentryTransport extends TransportStream {
       this.emit('logged', info);
     });
 
-    Sentry.captureEvent({
-      message: 'Manual',
-      stacktrace: {
-        frames: [ info ]
-      },
-    });
+    const level = (this.levelsMap as any)[info.level];
+    if (!this.silent && this.shouldLogMessage(level)) {
+      const message = this.normalizeMessage(info);
+      Sentry.captureMessage(message, level);
+    } 
 
     callback();
+  }
+
+  get sentry() {
+    return Sentry;
+  }
+
+  private withDefaults(options: Sentry.NodeOptions) {
+    this.silent = options && options.silent || false;
+
+    return {
+      dsn: process.env.SENTRY_DSN || '',
+      ...options
+    }
+  }
+
+  private normalizeMessage(msg: any) {
+    return msg instanceof Error ? msg.message : msg;
+  }
+
+  private shouldLogMessage(level: Sentry.Severity) {
+    return level === Sentry.Severity.Error || level === Sentry.Severity.Warning;
   }
 };
