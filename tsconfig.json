@@ -2,6 +2,7 @@
   "compilerOptions": {
     "declaration": true,
     "downlevelIteration": true,
+    "esModuleInterop": true,
     "inlineSources": true,
     "importHelpers": true,
     "lib": ["es6", "dom"],

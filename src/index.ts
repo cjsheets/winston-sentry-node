@@ -1,11 +1,11 @@
 import * as Sentry from '@sentry/node';
-import * as Transport from 'winston-transport';
+import TransportStream from 'winston-transport';
 
-export interface ISentryTransportOptions extends Transport.TransportStreamOptions {
+export interface ISentryTransportOptions extends TransportStream.TransportStreamOptions {
   sentry: Sentry.NodeOptions;
 }
 
-export class SentryTransport extends Transport {
+export class SentryTransport extends TransportStream {
   constructor(opts: ISentryTransportOptions) {
     super(opts);
     Sentry.init(opts.sentry);
