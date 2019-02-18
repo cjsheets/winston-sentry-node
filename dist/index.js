@@ -17,7 +17,7 @@ var SentryTransport = /** @class */ (function (_super) {
             warn: Sentry.Severity.Warning,
             error: Sentry.Severity.Error
         };
-        Sentry.init(_this.withDefaults(sentry));
+        Sentry.init(_this.withDefaults(sentry || {}));
         return _this;
     }
     SentryTransport.prototype.log = function (info, callback) {
@@ -44,13 +44,13 @@ var SentryTransport = /** @class */ (function (_super) {
         return tslib_1.__assign({ dsn: process.env.SENTRY_DSN || '' }, options);
     };
     SentryTransport.prototype.normalizeMessage = function (msg) {
-        return msg instanceof Error ? msg.message : msg;
+        return msg && msg.message ? msg.message : msg;
     };
     SentryTransport.prototype.shouldLogMessage = function (level) {
         return level === Sentry.Severity.Error || level === Sentry.Severity.Warning;
     };
     return SentryTransport;
 }(winston_transport_1.default));
-exports.SentryTransport = SentryTransport;
+exports.default = SentryTransport;
 ;
 //# sourceMappingURL=index.js.map

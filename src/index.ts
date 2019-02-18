@@ -2,10 +2,10 @@ import * as Sentry from '@sentry/node';
 import TransportStream from 'winston-transport';
 
 export interface ISentryTransportOptions extends TransportStream.TransportStreamOptions {
-  sentry: Sentry.NodeOptions;
+  sentry?: Sentry.NodeOptions;
 }
 
-export class SentryTransport extends TransportStream {
+export default class SentryTransport extends TransportStream {
   public silent = false;
   private levelsMap = {
     silly: Sentry.Severity.Debug,
@@ -18,7 +18,7 @@ export class SentryTransport extends TransportStream {
 
   constructor({ sentry, ...opts }: ISentryTransportOptions) {
     super(opts);
-    Sentry.init(this.withDefaults(sentry));
+    Sentry.init(this.withDefaults(sentry || {}));
   }
 
   log(info: any, callback: () => void) {
@@ -49,7 +49,7 @@ export class SentryTransport extends TransportStream {
   }
 
   private normalizeMessage(msg: any) {
-    return msg instanceof Error ? msg.message : msg;
+    return msg && msg.message ? msg.message : msg;
   }
 
   private shouldLogMessage(level: Sentry.Severity) {
