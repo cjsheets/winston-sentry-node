@@ -1,6 +1,6 @@
 {
   "name": "winston-sentry-node",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Winston 3.x transport for Sentry.io",
   "main": "dist/index.js",
   "scripts": {
@@ -20,6 +20,10 @@
     "winston3",
     "raven",
     "sentry"
+  ],
+  "files": [
+    "/dist",
+    "/src"
   ],
   "license": "MIT",
   "dependencies": {

@@ -40,6 +40,7 @@ You can also add the DSN to the `SENTRY_DSN` environment variable.
 [MIT License][license-url]
 
 
+[license-url]: LICENSE
 [node-url]: https://nodejs.org
 [sentry-url]: https://github.com/getsentry/sentry-javascript/tree/master/packages/node
 [winston-url]: https://github.com/winstonjs/winston
