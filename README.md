@@ -26,7 +26,9 @@ var logger = new winston.Logger({
   transports: [
     new winston.transports.Console({level: 'verbose'}),
     new SentryTransport({
-      dsn: "{{ YOUR SENTRY DSN }}"
+      sentry: {
+        dsn: "{{ YOUR SENTRY DSN }}"
+      }
     })
   ],
 });

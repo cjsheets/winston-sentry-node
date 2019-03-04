@@ -43,7 +43,7 @@ export default class SentryTransport extends TransportStream {
     this.silent = options && options.silent || false;
 
     return {
-      dsn: process.env.SENTRY_DSN || '',
+      dsn: options && options.dsn || process.env.SENTRY_DSN || '',
       ...options
     }
   }
